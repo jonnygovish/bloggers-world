@@ -1,0 +1,16 @@
+{%extends 'base.html'%}
+{% import 'macros.html' as macro%}
+<!-- Styles block -->
+{% block styles %}
+	{{ super() }}
+	
+{% endblock %}
+<!-- Conten block -->
+{%block content%}
+<div class="container">
+		<a href="/blog/new" class="btn btn-success btn-lg text-center">Write a Blog</a>
+	{{macro.displayBlogs(blogs)}}
+</div>
+
+
+{% endblock %}
