@@ -1,0 +1,4 @@
+*.pyc
+virtual/
+DS_Store
+start.sh
