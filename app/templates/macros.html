@@ -1,0 +1,17 @@
+{% macro displayBlogs(blog_list) %}
+
+{% for blogs in blog_list %}
+<a href="/blog/{{blogs.id}}">{{blogs.title}} </a>
+<p>{{blogs.content}}</p>
+{% endfor %}
+
+{% endmacro %}
+
+
+{% macro displayComments(comment_list) %}
+
+{% for comments in comment_list %}
+  <p>{{comments.content}} </p>
+
+{% endfor %}
+{% endmacro %}
