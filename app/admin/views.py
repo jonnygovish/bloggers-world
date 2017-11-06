@@ -23,7 +23,7 @@ def admin_dashboard():
   return render_template('admin/admin_dashboard.html', title=title,blogs=blogs)
 
 
-@admin.route('/blog/<int:id>')
+@admin.route('/admin/blog/<int:id>')
 def blog(id):
   
   check_admin()
