@@ -4,7 +4,6 @@ from ..models import User
 from .forms import RegistrationForm,LoginForm
 from .. import db
 from flask_login import login_user,logout_user,login_required
-from ..email import mail_message
 
 
 @auth.route('/login', methods=["GET", "POST"])
@@ -19,7 +18,10 @@ def login():
 
             login_user(user, login_form.remember.data)
 
-            return redirect(request.args.get('next') or url_for('main.index'))
+            if user.is_admin:
+                return redirect(url_for('main.admin_dashboard'))
+            else:
+                return redirect(request.args.get('next') or url_for('main.index'))
 
         flash('Invalid username or password')
 
@@ -46,7 +48,7 @@ def register():
 
         db.session.commit()
 
-        mail_message("Welcome to watchlist","email/welcome_user",user.email,user=user)
+        
 
         return redirect(url_for('auth.login'))
 
