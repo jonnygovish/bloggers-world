@@ -21,8 +21,9 @@ class User(UserMixin, db.Model):
   email = db.Column(db.String(255),unique = True,index = True)
   role_id = db.Column(db.Integer,db.ForeignKey('roles.id'))
   password_hash =db.Column(db.String(255))
-  blogs = db.relationship('Blog', backref='user', lazy ='dynamic')
-  comments = db.relationship('Comment', backref='user', lazy='dynamic')
+  blogs = db.relationship('Blog', backref='user', lazy ='dynamic',cascade ="all,delete-orphan")
+  comments = db.relationship('Comment', backref='user', lazy='dynamic',cascade ="all,delete-orphan")
+  is_admin = db.Column(db.Boolean,default=False)
   
 
   @property
@@ -55,8 +56,8 @@ class Blog(db.Model):
   
   __tablename__ = 'blogs'
   id = db.Column(db.Integer,primary_key=True)
-  title = db.Column(db.String(255))
-  content = db.Column(db.String(255))
+  title = db.Column(db.String)
+  content = db.Column(db.String)
   user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
   comments = db.relationship('Comment',backref= 'blog',cascade='all, delete-orphan', lazy='dynamic')
   date_posted = db.Column(db.DateTime, default= datetime.utcnow)
@@ -66,10 +67,11 @@ class Blog(db.Model):
     db.session.commit()
 
   @classmethod
-  def delete_blog(cls,id):
-    delete_blog = Blog.query.filter_by(id=id).delete()
+  def delete_blog(cls,blog_id):
+    delete_blog = Blog.query.filter_by(id=blog_id).delete()
+    comment = Comment.query.filter_by(post_id=post_id).delete()
     db.session.commit()
-    return delete_blog
+    
 
   @classmethod
   def get_blog(cls):
