@@ -10,6 +10,7 @@ The user can:
 * view the blog posts submitted
 * comment on blog posts
 * view the most recent posts
+<br>
 The writer/author can:
 * sign in to the blog.
 * create blog from the application.
