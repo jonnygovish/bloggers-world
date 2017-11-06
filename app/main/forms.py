@@ -10,3 +10,6 @@ class BlogForm(FlaskForm):
 class CommentForm(FlaskForm):
   content = TextAreaField('Comment')
   submit = SubmitField('submit')
+
+class DeleteBlog(FlaskForm):
+  submit =SubmitField('Delete Blog')
