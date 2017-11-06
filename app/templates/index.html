@@ -3,12 +3,11 @@
 <!-- Styles block -->
 {% block styles %}
 	{{ super() }}
-	
+	<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/index.css')}} ">
 {% endblock %}
 <!-- Conten block -->
 {%block content%}
 <div class="container">
-		<a href="/blog/new" class="btn btn-success btn-lg text-center">Write a Blog</a>
 	{{macro.displayBlogs(blogs)}}
 </div>
 
