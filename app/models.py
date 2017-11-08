@@ -68,8 +68,8 @@ class Blog(db.Model):
 
   @classmethod
   def delete_blog(cls,blog_id):
+    comment = Comment.query.filter_by(blog_id=blog_id).delete()
     delete_blog = Blog.query.filter_by(id=blog_id).delete()
-    comment = Comment.query.filter_by(post_id=post_id).delete()
     db.session.commit()
     
 
@@ -99,7 +99,8 @@ class Comment(db.Model):
   @classmethod
   def delete_comments(cls,id):
     del_comments = Comment.query.filter_by(id=id).delete()
-    return del_comments
+    db.session.commit()
+    
 
 
   
