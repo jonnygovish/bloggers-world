@@ -13,14 +13,13 @@ def check_admin():
   if not current_user.is_admin:
     abort(403)
 
-@admin.route('/admin_dashboard')
+@admin.route('/admin_dashboard', methods = ["GET","POST"])
 def admin_dashboard():
   check_admin()
   
   blogs = Blog.get_blog()
-  print(blogs)
   title ="Blogs World"
-  return render_template('admin/admin_dashboard.html', title=title,blogs=blogs)
+  return render_template('admin/admin_dashboard.html', blogs=blogs,title=title)
 
 
 @admin.route('/admin/blog/<int:id>')
@@ -56,14 +55,14 @@ def new_blog():
 
   return render_template('admin/new_blog.html',title = title, blog_form = form) 
 
-# @admin.route('/comment/<int:id>')
-# def single_comment(id):
+@admin.route('/comment/<int:id>')
+def single_comment(id):
   
-#   check_admin()
-#   comment = Comment.query.get(id)
+  check_admin()
+  comment = Comment.query.get(id)
 
-#   if comment is None:
-#     abort(404)
+  if comment is None:
+    abort(404)
 
-#   format_comment = markdown2.markdown(comment.content,extras=["code-friendly", "fenced-code-blocks"])
-#   return render_template('comment.html', comment= comment, format_comment= format_comment) 
+  format_comment = markdown2.markdown(comment.content,extras=["code-friendly", "fenced-code-blocks"])
+  return render_template('.comment.html', comment= comment, format_comment= format_comment) 
