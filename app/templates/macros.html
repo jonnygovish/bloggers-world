@@ -1,9 +1,10 @@
 {% macro displayBlogs(blog_list) %}
 
 {% for blogs in blog_list %}
-<h2><a href="/blog/{{blogs.id}}">{{blogs.title}} </a>
-</h2>
-<p>{{blogs.content}}</p>
+<div class="well">
+    <a href="/blog/{{blogs.id}}">{{blogs.title}} </a>
+    <p>{{blogs.content}}</p>
+  </div>
 {% endfor %}
 
 {% endmacro %}
@@ -12,7 +13,7 @@
 {% macro displayComments(comment_list) %}
 
 {% for comments in comment_list %}
-  <p>{{comments.content}} </p>
+<p>{{comments.content}} </p>
 
 {% endfor %}
 {% endmacro %}
@@ -21,8 +22,19 @@
 {% macro displayAdminBlogs(blog_list) %}
 
 {% for blogs in blog_list %}
-<a href="/blog/{{blogs.id}}">{{blogs.title}} </a>
-<p>{{blogs.content}}</p>
+<div class="well">
+  <a href="/admin/blog/{{blogs.id}}">{{blogs.title}} </a>
+  <p>{{blogs.content}}</p>
+</div>
 {% endfor %}
 
+{% endmacro %}
+
+
+{% macro displayAdminComments(comment_list) %}
+
+{% for comments in comment_list %}
+<p><a href="/blog/comment/{{comments.id}} ">{{comments.content}}</a></p>
+
+{% endfor %}
 {% endmacro %}

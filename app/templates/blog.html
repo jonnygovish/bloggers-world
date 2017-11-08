@@ -1,21 +1,43 @@
 {%extends 'base.html' %}
 {%import 'macros.html' as macro%}
 {% import "bootstrap/wtf.html" as wtf%}
+
+{% block styles %}
+{{ super() }}
+<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/index.css')}} ">
+{% endblock %}
 <!-- Content block-->
 {%block content%}
 <div class="container">
-	<h3>{{blogs.title}}</h3>
-	<p>{{blogs.content}} </p>
-	<!-- <a href="/blog/{{blogs.id}}">delete blog</a> -->
-	<hr>
-	<div>
-		<h2>Comments</h2>
-		<p>{{macro.displayComments(comments)}} </p>
+	<div class="block">
+		{%if current_user.is_admin != True %}
+		<h3>{{blogs.title}}</h3>
+		<p>{{blogs.content}} </p>
+		<a href="/blog/delete/{{blog.id}} ">Delete Blog</a>
 		<hr>
-		<h4>Leave your comment</h4>
-			{{wtf.quick_form(comment_form)}}
-			{{simplemde.load}}
-	</div>	
+		<div>
+			<h2>Comments</h2>
+			<p>{{macro.displayComments(comments)}} </p>
+			<hr>
+			<h4>Leave your comment</h4>
+				{{wtf.quick_form(comment_form)}}
+				{{simplemde.load}}
+		{% else%}
+		<h3>{{blogs.title}}</h3>
+		<p>{{blogs.content}} </p>
+		<a href="/blog/delete/{{blogs.id}} ">Delete Blog</a>
+		<hr>
+		<div>
+			<h2>Comments</h2>
+			<p>{{macro.displayAdminComments(comments)}} </p>
+			<hr>
+			<h4>Leave your comment</h4>
+				{{wtf.quick_form(comment_form)}}
+				{{simplemde.load}}
+			</div>	
+			{% endif %}
+	</div>
 </div>
+	<!-- <a href="/blog/{{blogs.id}}">delete blog</a> -->
 
 {%endblock%}

@@ -1,0 +1,11 @@
+{% extends 'base.html'%}
+
+{% block content%}
+<div class="container-fluid">
+
+  <div class="row">
+      <p>{{format_comment|safe}}</p>
+      <a href="/blog/comment/delete/{{comment.id}} ">Delete Comment</a>
+  </div>
+</div>
+{%endblock%}

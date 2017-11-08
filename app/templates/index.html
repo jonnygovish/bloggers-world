@@ -8,7 +8,18 @@
 <!-- Conten block -->
 {%block content%}
 <div class="container">
-	{{macro.displayBlogs(blogs)}}
+	{% if current_user.is_admin != True %}
+	<div class="well text-center">
+		{{macro.displayBlogs(blogs)}}
+	</div>
+	{% else%}
+	<div>
+		<a href="/admin/blog/new" class="btn btn-success btn-lg text-center">Write a Blog</a>
+	</div>
+	<div class="well text-center">
+			{{macro.displayBlogs(blogs)}}
+		</div>
+	{% endif %}
 </div>
 
 
